@@ -3,923 +3,397 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<title>Bookmark Vault Ultimate</title>
-
+<title>Bookmark Vault • Ultimate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-
-:root{
-  --bg:#06070b;
-  --surface:#10131a;
-  --line:rgba(255,255,255,0.08);
-
-  --text:#f5f7fa;
-  --muted:#9aa4b2;
-
-  --accent:#8ab4ff;
-  --accent2:#6ee7ff;
-
-  --radius:28px;
-
-  color-scheme:dark;
+:root {
+  --bg: #06070b;
+  --surface: #0f1219;
+  --surface2: #161b26;
+  --line: rgba(255,255,255,0.08);
+  --text: #f5f7fa;
+  --muted: #9aa4b2;
+  --accent: #8ab4ff;
+  --accent2: #6ee7ff;
+  --radius: 28px;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: radial-gradient(circle at 20% 30%, rgba(138,180,255,0.12), transparent 40%),
+              radial-gradient(circle at 80% 70%, rgba(110,231,255,0.09), transparent 50%),
+              var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
 }
 
-body{
+.container { max-width: 1480px; margin: auto; padding: 0 24px; }
 
-  background:
-  radial-gradient(circle at top left,
-  rgba(138,180,255,0.10),
-  transparent 20%),
-
-  radial-gradient(circle at bottom right,
-  rgba(110,231,255,0.08),
-  transparent 25%),
-
-  var(--bg);
-
-  color:var(--text);
-
-  font-family:'Inter',sans-serif;
-
-  min-height:100vh;
-
+header {
+  padding: 32px 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6,7,11,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
 }
 
-.container-main{
-  width:min(1350px,92%);
-  margin:auto;
-  padding-bottom:60px;
+.title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -2px;
 }
 
-.hero{
-  padding-top:90px;
-  padding-bottom:60px;
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  backdrop-filter: blur(24px);
 }
 
-.title{
-  font-size:clamp(3rem,8vw,6rem);
-  line-height:0.95;
-  font-family:'Plus Jakarta Sans',sans-serif;
+.card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.subtitle{
-  margin-top:24px;
-  max-width:700px;
-  color:var(--muted);
-  line-height:1.8;
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(138,180,255,0.4);
+  box-shadow: 0 25px 50px -12px rgba(138,180,255,0.15);
 }
 
-.layout{
-  display:grid;
-  grid-template-columns:1.7fr 0.8fr;
-  gap:28px;
+.favicon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  padding: 8px;
+  background: #0a0e17;
+  object-fit: contain;
 }
 
-.panel{
-  background:linear-gradient(
-  180deg,
-  rgba(255,255,255,0.04),
-  rgba(255,255,255,0.02));
-
-  border:1px solid var(--line);
-
-  border-radius:var(--radius);
-
-  padding:30px;
-
-  backdrop-filter:blur(20px);
+.btn {
+  padding: 14px 24px;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
 }
 
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  flex-wrap:wrap;
+.btn-primary { background: linear-gradient(135deg, #8ab4ff, #6ee7ff); color: #06111f; }
+.btn-secondary { background: rgba(255,255,255,0.08); color: white; }
+
+.input {
+  background: var(--surface2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 9999px;
+  padding: 16px 24px;
+  color: white;
+  outline: none;
+  transition: all 0.3s;
 }
 
-.tag{
-  padding:10px 16px;
-  border-radius:999px;
-  background:rgba(138,180,255,0.08);
-  color:#cfe0ff;
-  font-size:13px;
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(138,180,255,0.15);
 }
 
-.search{
-  display:flex;
-  gap:14px;
-  margin-top:24px;
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: #11151f;
+  border: 1px solid rgba(138,180,255,0.3);
+  padding: 16px 24px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  animation: toastPop 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
 
-.input{
-  width:100%;
-  background:var(--surface);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:22px;
-  padding:18px 20px;
-  color:white;
-  outline:none;
+@keyframes toastPop {
+  from { transform: translateY(30px) scale(0.8); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
 }
-
-.input:focus{
-  border-color:rgba(138,180,255,0.4);
-  box-shadow:0 0 0 4px rgba(138,180,255,0.08);
-}
-
-.btn{
-  border:none;
-  cursor:pointer;
-  border-radius:20px;
-  padding:14px 20px;
-  font-weight:600;
-  transition:0.3s;
-}
-
-.btn-primary{
-  background:linear-gradient(
-  135deg,
-  #dbeafe,
-  #8ab4ff);
-
-  color:#06111f;
-}
-
-.btn-primary:hover{
-  transform:translateY(-2px);
-}
-
-.btn-secondary{
-  background:rgba(255,255,255,0.05);
-  color:white;
-}
-
-.btn-danger{
-  background:rgba(255,100,100,0.15);
-  color:#ff6b6b;
-}
-
-.cards{
-  margin-top:34px;
-
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:18px;
-}
-
-.card{
-  background:
-  linear-gradient(
-  180deg,
-  rgba(255,255,255,0.04),
-  rgba(255,255,255,0.02));
-
-  border:1px solid rgba(255,255,255,0.06);
-
-  border-radius:24px;
-
-  padding:22px;
-
-  transition:0.3s;
-
-  display:flex;
-  flex-direction:column;
-}
-
-.card:hover{
-  transform:translateY(-5px);
-  border-color:rgba(138,180,255,0.25);
-}
-
-.card-content{
-  flex:1;
-}
-
-.card-top{
-  display:flex;
-  gap:16px;
-}
-
-.favicon{
-  width:48px;
-  height:48px;
-  border-radius:14px;
-  background:#0b1017;
-  padding:8px;
-}
-
-.card-title{
-  font-weight:700;
-  line-height:1.4;
-}
-
-.category{
-  margin-top:10px;
-
-  display:inline-flex;
-
-  padding:8px 12px;
-
-  border-radius:999px;
-
-  background:rgba(138,180,255,0.08);
-
-  font-size:12px;
-}
-
-.url{
-  margin-top:20px;
-  color:var(--muted);
-  word-break:break-all;
-  font-size:14px;
-}
-
-.card-actions{
-  display:flex;
-  gap:10px;
-  margin-top:18px;
-  padding-top:18px;
-  border-top:1px solid rgba(255,255,255,0.05);
-}
-
-.card-actions a,
-.card-actions button{
-  flex:1;
-  text-align:center;
-  text-decoration:none;
-}
-
-.toast{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-
-  background:#10151f;
-
-  border:1px solid rgba(255,255,255,0.08);
-
-  padding:18px 22px;
-
-  border-radius:20px;
-
-  opacity:0;
-
-  transform:translateY(20px);
-
-  transition:0.3s;
-
-  z-index:999;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.import-zone{
-  margin-top:28px;
-
-  padding:28px;
-
-  border-radius:24px;
-
-  border:1px dashed rgba(255,255,255,0.12);
-
-  text-align:center;
-}
-
-.footer{
-  margin-top:80px;
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-}
-
-@media(max-width:980px){
-
-  .layout{
-    grid-template-columns:1fr;
-  }
-
-  .search{
-    flex-direction:column;
-  }
-
-}
-
 </style>
 </head>
-
 <body>
-
-<div class="container-main">
-
-<section class="hero">
-
-<h1 class="title">
-Bookmark Vault
-</h1>
-
-<p class="subtitle">
-Organisez vos favoris dans une interface moderne,
-rapide et élégante.
-</p>
-
-</section>
-
-<section class="layout">
-
-<div class="panel">
-
-<div class="topbar">
-
-<div>
-<p style="color:var(--muted);font-size:14px;">
-Bibliothèque personnelle
-</p>
-
-<h2 style="margin-top:10px;font-size:2rem;">
-Vos favoris
-</h2>
-</div>
-
-<div id="bookmarkCount" class="tag">
-0 favoris
-</div>
-
-</div>
-
-<div class="search">
-
-<input
-id="search"
-class="input"
-placeholder="Rechercher un favori..."
-type="search"
-/>
-
-<button
-id="clearSearch"
-class="btn btn-secondary">
-Effacer
-</button>
-
-</div>
-
-<div id="cards" class="cards"></div>
-
-</div>
-
-<aside class="panel">
-
-<h2 style="font-size:2rem;">
-Ajouter un lien
-</h2>
-
-<form
-id="addForm"
-style="
-margin-top:30px;
-display:flex;
-flex-direction:column;
-gap:14px;
-">
-
-<input
-id="title"
-class="input"
-placeholder="Nom du site"
-required
-/>
-
-<input
-id="url"
-class="input"
-placeholder="https://..."
-required
-/>
-
-<input
-id="category"
-class="input"
-placeholder="Catégorie"
-/>
-
-<button
-type="submit"
-class="btn btn-primary">
-Ajouter le favori
-</button>
-
-</form>
-
-<div class="import-zone">
-
-<h3>
-Importer des favoris
-</h3>
-
-<p style="
-margin-top:12px;
-color:var(--muted);
-line-height:1.7;
-font-size:14px;
-">
-HTML, JSON, TXT
-</p>
-
-<button
-id="importBtn"
-class="btn btn-secondary"
-style="
-width:100%;
-margin-top:20px;
-">
-Choisir un fichier
-</button>
-
-<input
-id="importFile"
-type="file"
-accept=".html,.json,.txt"
-hidden
-/>
-
-</div>
-
-</aside>
-
-</section>
-
-<footer class="footer">
-Bookmark Vault Ultimate • 2026
-</footer>
-
-</div>
-
-<div id="toast" class="toast"></div>
-
-<script>
-
-const STORAGE_KEY = "bookmark_vault_ultimate";
-
-let items =
-JSON.parse(
-localStorage.getItem(STORAGE_KEY)
-|| "[]"
-);
-
-function save(){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(items)
-  );
-
-}
-
-function toast(message){
-
-  const el =
-  document.getElementById("toast");
-
-  el.textContent = message;
-
-  el.classList.add("show");
-
-  setTimeout(() => {
-
-    el.classList.remove("show");
-
-  },2500);
-
-}
-
-function favicon(url){
-
-  try{
-
-    const domain =
-    new URL(url).hostname;
-
-    return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
-
-  }catch{
-
-    return "";
-
-  }
-
-}
-
-function render(filter=""){
-
-  const cards =
-  document.getElementById("cards");
-
-  cards.innerHTML = "";
-
-  const filtered =
-  items.filter(item => {
-
-    const text =
-    (
-      (item.title || "") +
-      (item.url || "") +
-      (item.category || "")
-    ).toLowerCase();
-
-    return text.includes(
-      filter.toLowerCase()
-    );
-
-  });
-
-  document.getElementById(
-  "bookmarkCount")
-  .textContent =
-  `${filtered.length} favoris`;
-
-  if(!filtered.length){
-
-    cards.innerHTML = `
-    <div class="card">
-      <p style="color:var(--muted);">
-        Aucun favori trouvé.
-      </p>
+<div class="container py-8">
+
+  <header class="flex items-end justify-between">
+    <div>
+      <h1 class="title">Bookmark Vault</h1>
+      <p class="text-[#9aa4b2] mt-2 text-lg">Organisez l'essentiel avec élégance</p>
     </div>
-    `;
+    <div class="flex items-center gap-4">
+      <button id="saveLocalBtn" class="btn btn-secondary text-sm">💾 Sauvegarder localement</button>
+      <div id="stats" class="panel px-6 py-3 rounded-3xl text-sm flex gap-6"></div>
+    </div>
+  </header>
 
-    return;
-
-  }
-
-  filtered.forEach(item => {
-
-    const card =
-    document.createElement("div");
-
-    card.className = "card";
-
-    card.innerHTML = `
-
-    <div class="card-content">
-
-      <div class="card-top">
-
-        <img
-        class="favicon"
-        src="${favicon(item.url)}"
-        />
-
-        <div>
-
-          <div class="card-title">
-            ${item.title || "Sans titre"}
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="lg:col-span-8">
+      <div class="panel p-8">
+        <div class="flex flex-wrap gap-4 items-center justify-between mb-8">
+          <div class="flex items-center gap-3 flex-wrap">
+            <input id="search" class="input w-full max-w-md" placeholder="Rechercher un favori...">
+            <select id="sortSelect" class="input">
+              <option value="newest">Plus récents</option>
+              <option value="oldest">Plus anciens</option>
+              <option value="alpha">Alphabétique</option>
+              <option value="category">Par catégorie</option>
+            </select>
           </div>
 
-          <div class="category">
-            ${item.category || "Divers"}
+          <div class="flex gap-3">
+            <button id="exportBtn" class="btn btn-secondary">Exporter</button>
+            <button id="importBtn" class="btn btn-primary">Importer</button>
           </div>
-
         </div>
 
+        <div id="categoryFilters" class="flex flex-wrap gap-2 mb-8"></div>
+        <div id="cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
       </div>
-
-      <div class="url">
-        ${item.url}
-      </div>
-
     </div>
 
-    <div class="card-actions">
+    <div class="lg:col-span-4">
+      <div class="panel p-8 sticky top-8">
+        <h2 class="text-2xl font-semibold mb-6">Ajouter un favori</h2>
+        <form id="addForm" class="space-y-5">
+          <input id="title" class="input w-full" placeholder="Nom du site" required>
+          <input id="url" class="input w-full" placeholder="https://" required>
+          <input id="category" class="input w-full" placeholder="Catégorie (ex: Dev, Design...)">
+          <button type="submit" class="btn btn-primary w-full">Ajouter le favori</button>
+        </form>
 
-      <a
-      href="${item.url}"
-      target="_blank"
-      class="btn btn-primary">
-      Visiter
-      </a>
-
-      <button
-      class="btn btn-danger"
-      onclick="deleteBookmark('${item.id}')">
-      Supprimer
-      </button>
-
+        <div id="dropZone" class="mt-8 border border-dashed border-white/20 rounded-3xl p-10 text-center hover:border-[#8ab4ff]/50 transition cursor-pointer">
+          <p class="text-sm text-[#9aa4b2]">Glissez un fichier ici<br>ou cliquez pour importer</p>
+          <input id="importFile" type="file" accept=".html,.json,.txt" hidden>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    `;
+<div id="toast" class="toast">
+  <span id="toastText"></span>
+</div>
 
-    cards.appendChild(card);
+<script>
+// ==================== STORAGE INTELLIGENT ====================
+let bookmarks = [];
+let storageAvailable = true;
 
+function initStorage() {
+  try {
+    const test = 'test';
+    localStorage.setItem('test', test);
+    localStorage.removeItem('test');
+    const saved = localStorage.getItem("bookmark_vault_ultimate_v2");
+    bookmarks = saved ? JSON.parse(saved) : [];
+  } catch (e) {
+    storageAvailable = false;
+    bookmarks = [];
+  }
+}
+
+function saveBookmarks() {
+  if (!storageAvailable) return;
+  try {
+    localStorage.setItem("bookmark_vault_ultimate_v2", JSON.stringify(bookmarks));
+  } catch (e) {}
+}
+
+// Sauvegarde manuelle (pour les environnements sandbox)
+function saveAsFile() {
+  const data = JSON.stringify(bookmarks, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `bookmarks-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("✅ Sauvegarde téléchargée");
+}
+
+// ==================== UTILITIES ====================
+function showToast(message, duration = 2400) {
+  const toast = document.getElementById("toast");
+  document.getElementById("toastText").innerHTML = message;
+  toast.style.display = "flex";
+  setTimeout(() => toast.style.display = "none", duration);
+}
+
+function getFavicon(url) {
+  try {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
+  } catch {
+    return "https://via.placeholder.com/52?text=🔗";
+  }
+}
+
+function validateUrl(url) {
+  try {
+    new URL(url.startsWith('http') ? url : 'https://' + url);
+    return true;
+  } catch { return false; }
+}
+
+// ==================== RENDER & CRUD ====================
+function renderBookmarks() {
+  const container = document.getElementById("cards");
+  container.innerHTML = "";
+
+  let filtered = bookmarks.filter(b => {
+    const text = ((b.title || "") + b.url + (b.category || "")).toLowerCase();
+    return text.includes(currentFilter.toLowerCase()) &&
+           (!currentCategoryFilter || b.category === currentCategoryFilter);
   });
 
+  const sortMode = document.getElementById("sortSelect").value;
+  if (sortMode === "newest") filtered.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+  else if (sortMode === "oldest") filtered.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt));
+  else if (sortMode === "alpha") filtered.sort((a,b) => (a.title || "").localeCompare(b.title || ""));
+  else if (sortMode === "category") filtered.sort((a,b) => (a.category || "").localeCompare(b.category || ""));
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="col-span-full py-20 text-center text-[#9aa4b2]">Aucun favori trouvé</div>`;
+    return;
+  }
+
+  filtered.forEach(b => {
+    const card = document.createElement("div");
+    card.className = "card p-6";
+    card.innerHTML = `
+      <div class="flex gap-4">
+        <img src="${getFavicon(b.url)}" class="favicon" onerror="this.src='https://via.placeholder.com/52?text=🔗'">
+        <div class="flex-1 min-w-0">
+          <div class="font-semibold text-lg leading-tight mb-1">${b.title || "Sans titre"}</div>
+          <div class="text-xs text-[#9aa4b2] truncate">${b.url}</div>
+          ${b.category ? `<div class="inline-block mt-3 px-4 py-1 text-xs rounded-full bg-white/5 text-[#8ab4ff]">${b.category}</div>` : ''}
+        </div>
+      </div>
+      <div class="mt-6 flex gap-2">
+        <a href="${b.url}" target="_blank" class="flex-1 text-center py-3.5 bg-white/5 hover:bg-white/10 rounded-2xl text-sm font-medium transition">Visiter</a>
+        <button onclick="editBookmark('${b.id}')" class="flex-1 text-center py-3.5 bg-white/5 hover:bg-white/10 rounded-2xl text-sm font-medium transition">Modifier</button>
+        <button onclick="deleteBookmark('${b.id}')" class="px-6 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-2xl text-sm font-medium transition">🗑</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
 }
 
-function deleteBookmark(id){
-
-  items =
-  items.filter(
-  item => item.id !== id
-  );
-
-  save();
-
-  render();
-
-  toast("Favori supprimé");
-
-}
-
-render();
-
-document
-.getElementById("addForm")
-.addEventListener("submit", e => {
-
+function addBookmark(e) {
   e.preventDefault();
+  let url = document.getElementById("url").value.trim();
+  const title = document.getElementById("title").value.trim();
+  const category = document.getElementById("category").value.trim();
 
-  const title =
-  document.getElementById("title")
-  .value.trim();
+  if (!url) return;
+  if (!url.startsWith("http")) url = "https://" + url;
+  if (!validateUrl(url)) return showToast("❌ URL invalide");
 
-  let url =
-  document.getElementById("url")
-  .value.trim();
+  if (bookmarks.some(b => b.url === url)) return showToast("⚠️ Ce favori existe déjà");
 
-  const category =
-  document.getElementById("category")
-  .value.trim();
-
-  if(!/^https?:\/\//i.test(url)){
-
-    url = "https://" + url;
-
-  }
-
-  const bookmark = {
-
-    id:crypto.randomUUID(),
-
-    title,
-
+  bookmarks.unshift({
+    id: crypto.randomUUID(),
+    title: title || new URL(url).hostname,
     url,
+    category: category || "Général",
+    createdAt: new Date().toISOString()
+  });
 
-    category,
-
-    createdAt:new Date().toISOString()
-
-  };
-
-  items.unshift(bookmark);
-
-  save();
-
-  render();
-
+  saveBookmarks();
+  renderBookmarks();
+  updateStats();
+  renderCategoryFilters();
   e.target.reset();
-
-  toast("Favori ajouté");
-
-});
-
-document
-.getElementById("search")
-.addEventListener("input", e => {
-
-  render(e.target.value);
-
-});
-
-document
-.getElementById("clearSearch")
-.addEventListener("click", () => {
-
-  document.getElementById(
-  "search").value = "";
-
-  render();
-
-});
-
-const importBtn =
-document.getElementById(
-"importBtn"
-);
-
-const importFile =
-document.getElementById(
-"importFile"
-);
-
-importBtn.addEventListener(
-"click",
-() => {
-
-  importFile.click();
-
-});
-
-importFile.addEventListener(
-"change",
-async e => {
-
-  const file =
-  e.target.files[0];
-
-  if(file){
-
-    await handleImport(file);
-
-  }
-
-});
-
-async function handleImport(file){
-
-  try{
-
-    const extension =
-    file.name
-    .split(".")
-    .pop()
-    .toLowerCase();
-
-    const text =
-    await file.text();
-
-    let imported = 0;
-
-    if(extension === "html"){
-
-      const doc =
-      new DOMParser()
-      .parseFromString(
-      text,
-      "text/html"
-      );
-
-      const links =
-      doc.querySelectorAll("a");
-
-      links.forEach(link => {
-
-        const href =
-        link.href ||
-        link.getAttribute("href");
-
-        if(!href) return;
-
-        const exists =
-        items.some(
-        i => i.url === href
-        );
-
-        if(exists) return;
-
-        items.unshift({
-
-          id:crypto.randomUUID(),
-
-          title:
-          link.textContent.trim()
-          || href,
-
-          url:href,
-
-          category:"Import HTML"
-
-        });
-
-        imported++;
-
-      });
-
-    }
-
-    else if(extension === "json"){
-
-      const data =
-      JSON.parse(text);
-
-      const bookmarks =
-      Array.isArray(data)
-      ? data
-      : data.bookmarks || [];
-
-      bookmarks.forEach(bookmark => {
-
-        if(!bookmark.url) return;
-
-        const exists =
-        items.some(
-        i => i.url === bookmark.url
-        );
-
-        if(exists) return;
-
-        items.unshift({
-
-          id:crypto.randomUUID(),
-
-          title:
-          bookmark.title ||
-          "Sans titre",
-
-          url:
-          bookmark.url,
-
-          category:
-          bookmark.category ||
-          "Import JSON"
-
-        });
-
-        imported++;
-
-      });
-
-    }
-
-    else if(extension === "txt"){
-
-      const lines =
-      text.split("\n");
-
-      lines.forEach(line => {
-
-        line = line.trim();
-
-        if(!line) return;
-
-        if(!/^https?:\/\//i.test(line)){
-
-          line =
-          "https://" + line;
-
-        }
-
-        const exists =
-        items.some(
-        i => i.url === line
-        );
-
-        if(exists) return;
-
-        items.unshift({
-
-          id:crypto.randomUUID(),
-
-          title:
-          new URL(line).hostname,
-
-          url:line,
-
-          category:"Import TXT"
-
-        });
-
-        imported++;
-
-      });
-
-    }
-
-    save();
-
-    render();
-
-    toast(
-    `✅ ${imported} favoris importés`
-    );
-
-  }catch(error){
-
-    console.error(error);
-
-    toast(
-    "❌ Erreur pendant l'import"
-    );
-
-  }
-
+  showToast("✅ Favori ajouté");
 }
 
-</script>
+function deleteBookmark(id) {
+  if (confirm("Supprimer ce favori ?")) {
+    bookmarks = bookmarks.filter(b => b.id !== id);
+    saveBookmarks();
+    renderBookmarks();
+    updateStats();
+    renderCategoryFilters();
+    showToast("Favori supprimé");
+  }
+}
 
+function editBookmark(id) {
+  const bookmark = bookmarks.find(b => b.id === id);
+  if (!bookmark) return;
+  const newTitle = prompt("Nouveau titre :", bookmark.title);
+  if (newTitle === null) return;
+  const newCat = prompt("Nouvelle catégorie :", bookmark.category || "Général");
+  bookmark.title = newTitle.trim();
+  if (newCat !== null) bookmark.category = newCat.trim();
+  saveBookmarks();
+  renderBookmarks();
+  showToast("Favori modifié");
+}
+
+// Stats & Filters
+let currentFilter = "";
+let currentCategoryFilter = "";
+
+function updateStats() {
+  const cats = new Set(bookmarks.map(b => b.category).filter(Boolean)).size;
+  document.getElementById("stats").innerHTML = `
+    <div><strong>${bookmarks.length}</strong> favoris</div>
+    <div><strong>${cats}</strong> catégories</div>
+  `;
+}
+
+function renderCategoryFilters() {
+  const container = document.getElementById("categoryFilters");
+  const cats = [...new Set(bookmarks.map(b => b.category).filter(Boolean))];
+  container.innerHTML = `<button onclick="filterByCategory('')" class="px-5 py-2 text-sm rounded-3xl ${!currentCategoryFilter ? 'bg-[#8ab4ff] text-black' : 'bg-white/5'}">Tous</button>`;
+
+  cats.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = `px-5 py-2 text-sm rounded-3xl ${currentCategoryFilter === cat ? 'bg-[#8ab4ff] text-black' : 'bg-white/5'}`;
+    btn.textContent = cat;
+    btn.onclick = () => filterByCategory(cat);
+    container.appendChild(btn);
+  });
+}
+
+function filterByCategory(cat) {
+  currentCategoryFilter = cat;
+  renderBookmarks();
+  renderCategoryFilters();
+}
+
+// ==================== INIT ====================
+initStorage();
+
+document.getElementById("addForm").addEventListener("submit", addBookmark);
+document.getElementById("search").addEventListener("input", e => { currentFilter = e.target.value; renderBookmarks(); });
+document.getElementById("sortSelect").addEventListener("change", renderBookmarks);
+document.getElementById("saveLocalBtn").addEventListener("click", saveAsFile);
+
+renderBookmarks();
+updateStats();
+renderCategoryFilters();
+
+showToast("✅ Bookmark Vault Ultimate prêt", 1800);
+</script>
 </body>
 </html>
